@@ -1,11 +1,16 @@
 {
   "name": "audio-stream",
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "description": "Stream audio through Node.js backend to web frontend.",
+  "scripts": {
+    "start": "node source/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ahtcx/audio-stream.git"
   },
-  "author": "Alexandre Hitchcox <alexandre@htcx.co>"
+  "author": "Alexandre Hitchcox <alexandre@htcx.co>",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
 }

@@ -1,0 +1,97 @@
+:root {
+  background: #fafafa;
+  font-family: sans-serif;
+}
+
+.content {
+  position: relative;
+
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* position the logo and cover it with an overlay */
+.logo {
+  position: relative;
+
+  margin-top: 16px;
+
+  text-align: center;
+}
+
+.logo_image {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.logo_overlay {
+  position: absolute;
+
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+/* grid containing the streams */
+.streams {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 16px;
+  margin: 16px 0;
+}
+
+/* single stream container */
+.stream {
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 16px #eee;
+  overflow: hidden;
+  line-height: 64px;
+  position: relative;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+/* stream state area on the left */
+.stream::before {
+  content: '\25b6'; /* play icon */
+  display: inline-block;
+  position: absolute;
+
+  background: #ccc;
+  color: #fff;
+
+  font-size: 24px;
+  text-align: center;
+  text-shadow: 0 1px #aaa;
+  width: 64px;
+
+  transition: background 0.15s, color 0.15s, text-shadow 0.15s;
+}
+
+/* change icon depending on stream state */
+.stream.stream_playing::before {
+  content: '\25fc'; /* stop icon */
+}
+.stream.stream_buffering::before {
+  content: '\21bb'; /* buffering icon */
+}
+
+/* different color open streams */
+.stream_playing::before, .stream_buffering::before {
+  background: #4cf;
+  color: #fff;
+
+  text-shadow: 0 1px #39c;
+}
+
+/* stream name */
+.stream::after {
+  content: attr(data-name);
+
+  margin-left: 64px;
+  padding: 16px;
+}
