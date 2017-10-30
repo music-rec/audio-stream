@@ -23,6 +23,9 @@
 .logo_image {
   max-width: 100%;
   max-height: 100%;
+
+  pointer-events: none;
+  user-select: none;
 }
 
 .logo_overlay {
@@ -74,18 +77,18 @@
 
 /* change icon depending on stream state */
 .stream.stream_playing::before {
-  content: '\25fc'; /* stop icon */
+  content: '\25fc\fe0e'; /* stop icon */
 }
 .stream.stream_buffering::before {
-  content: '\21bb'; /* buffering icon */
+  content: '\231b\fe0e'; /* buffering icon */
 }
 
 /* different color open streams */
 .stream_playing::before, .stream_buffering::before {
-  background: #4cf;
+  background: #fc0;
   color: #fff;
 
-  text-shadow: 0 1px #39c;
+  text-shadow: 0 1px #eb0;
 }
 
 /* stream name */
@@ -94,4 +97,23 @@
 
   margin-left: 64px;
   padding: 16px;
+}
+
+/* credits */
+.credits, .credits__link {
+  font-size: xx-small;
+  text-align: center;
+  color: #888;
+}
+
+.credits__link {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* make responsive on mobile devices */
+@media (max-width: 425px) {
+  .streams {
+    grid-template-columns: auto;
+  }
 }
