@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Stream audio through Node.js backend to web frontend.",
   "scripts": {
-    "start": "node source/index.js"
+    "start": "node source/index.js config.json"
   },
   "repository": {
     "type": "git",
@@ -11,6 +11,7 @@
   },
   "author": "Alexandre Hitchcox <alexandre@htcx.co>",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "pug": "^2.0.0-rc.4"
   }
 }

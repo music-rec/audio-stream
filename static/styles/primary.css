@@ -20,7 +20,7 @@
   text-align: center;
 }
 
-.logo_image {
+.logo__image {
   max-width: 100%;
   max-height: 100%;
 
@@ -28,7 +28,7 @@
   user-select: none;
 }
 
-.logo_overlay {
+.logo__overlay {
   position: absolute;
 
   top: 0;
@@ -67,7 +67,7 @@
   background: #ccc;
   color: #fff;
 
-  font-size: 24px;
+  font-size: xx-large;
   text-align: center;
   text-shadow: 0 1px #aaa;
   width: 64px;

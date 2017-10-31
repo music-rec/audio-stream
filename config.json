@@ -1,0 +1,41 @@
+{
+  "logo": "https://htcx.co/assets/images/global/logo.svg",
+  "streams": [
+    {
+      "name": "BBC Radio 1",
+      "source": "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_q"
+    },
+    {
+      "name": "BBC Radio 2",
+      "source": "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio2_mf_p"
+    },
+    {
+      "name": "BBC Radio 3",
+      "source": "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio3_mf_p"
+    },
+    {
+      "name": "BBC Radio 4",
+      "source": "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio4fm_mf_p"
+    },
+    {
+      "name": "BBC Radio 4 Extra",
+      "source": "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio4extra_mf_p"
+    },
+    {
+      "name": "BBC Radio 5 Live",
+      "source": "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio5live_mf_q"
+    },
+    {
+      "name": "BBC Radio 5 Live Sports Extra",
+      "source": "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio5live_mf_p"
+    },
+    {
+      "name": "BBC Radio 6 Music",
+      "source": "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_6music_mf_q"
+    },
+    {
+      "name": "BBC Radio World Service",
+      "source": "http://bbcmedia.ic.llnwd.net/stream/bbcwssc_mp1_ws-einws"
+    }
+  ]
+}

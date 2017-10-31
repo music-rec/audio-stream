@@ -1,0 +1,16 @@
+meta(charset='utf-8')
+meta(name='viewport' content='width=device-width, initial-scale=1.0')
+title Audio Stream
+link(rel='stylesheet' href='/static/styles/primary.css')
+script(src='/static/scripts/primary.js')
+div.content
+  if logo
+    div.logo
+      img.logo__image(src=logo)
+      div.logo__overlay
+  div.streams
+    each stream in streams
+      if stream.name && stream.source
+        div.stream(data-name=stream.name data-source=stream.source)
+  p.credits Made by
+    a.credits__link(href='https://htcx.co/' target='_blank') &#x26a1;HTCX
