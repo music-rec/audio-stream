@@ -9,6 +9,7 @@ const hash = string => {
   const f = crypto.createHash('sha256');
 
   f.update(string);
+
   return f.digest('hex')
 }
 
@@ -30,11 +31,11 @@ class Server {
     for (let stream of this.parameters.streams)
       stream.source = hash(stream.source);
 
-    console.log(this.parameters);
-
     // define view engine a endpoints
     this.app.set('view engine', 'pug');
-    this.app.use('/static', express.static('./static'));
+
+    this.app.use('/static', express.static(path.join(__dirname, 'static')));
+
     this.app.get('/', (request, response) => {
       response.render('index', this.parameters);
     });
