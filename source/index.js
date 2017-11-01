@@ -1,6 +1,7 @@
 'use strict';
 
 const Server = require('./server');
+const StreamManager = require('./stream').StreamManager;
 
 const path = require('path');
 
@@ -8,8 +9,11 @@ const path = require('path');
 const file = path.resolve(process.argv[2]); // arg to absolute path
 const config = require(file); // merge config file
 
+// create new stream manager
+const manager = new StreamManager(config);
+
 // create a new server
-const server = new Server(config);
+const server = new Server(manager, config.logo);
 
 server.start();
 

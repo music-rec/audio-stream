@@ -1,49 +1,40 @@
 'use strict';
 
-const crypto = require('crypto');
 const express = require('express');
 const path = require('path');
 
-// get sha256 in hex string
-const hash = string => {
-  const f = crypto.createHash('sha256');
-
-  f.update(string);
-
-  return f.digest('hex')
-}
-
 // manages the express server -- the backend
 class Server {
-  constructor (config) {
+  constructor (manager, logo) {
     this.app = express();
-    this.config = config || {};
-    this.parameters = {};
+    this.server = require('http').createServer(this.app);
+    this.io = require('socket.io')(this.server);
 
-    // create a dictonary of hashed sources
-    this.sources = {};
-    for (let stream of this.config.streams || [])
-      this.sources[hash(stream.source)] = stream.source;
+    this.manager = manager;
 
-    // set parameters with hashed sources
-    this.parameters.logo = this.config.logo || null;
-    this.parameters.streams = this.config.streams || [];
-    for (let stream of this.parameters.streams)
-      stream.source = hash(stream.source);
-
-    // define view engine a endpoints
+    // define view engine and endpoints
     this.app.set('view engine', 'pug');
 
     this.app.use('/static', express.static(path.join(__dirname, 'static')));
 
+    // render index with config logo and streams
     this.app.get('/', (request, response) => {
-      response.render('index', this.parameters);
+      response.render('index', {
+        logo: logo || null,
+        streams: this.manager.streams || []
+      });
+    });
+
+    this.io.on('connection', socket => {
+      socket.on('request stream', uid => {
+        console.log(this.manager.streams[uid].source); // TODO: actually stream it
+      })
     });
   }
 
   // start the server
   start () {
-    this.app.listen(3000, () => {
+    this.server.listen(3000, () => {
       console.log('Listening on port 3000');
     });
   }

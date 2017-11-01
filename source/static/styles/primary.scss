@@ -18,23 +18,23 @@
   margin-top: 16px;
 
   text-align: center;
-}
 
-.logo__image {
-  max-width: 100%;
-  max-height: 100%;
+  .logo__image {
+    max-width: 100%;
+    max-height: 100%;
 
-  pointer-events: none;
-  user-select: none;
-}
+    pointer-events: none;
+    user-select: none;
+  }
 
-.logo__overlay {
-  position: absolute;
+  .logo__overlay {
+    position: absolute;
 
-  top: 0;
+    top: 0;
 
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 /* grid containing the streams */
@@ -56,47 +56,52 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   cursor: pointer;
-}
+  transition: box-shadow 0.3s;
 
-/* stream state area on the left */
-.stream::before {
-  content: '\25b6'; /* play icon */
-  display: inline-block;
-  position: absolute;
+  &:hover {
+    box-shadow: 0 0 32px #ccc;
+  }
 
-  background: #ccc;
-  color: #fff;
+  /* stream state area on the left */
+  &::before {
+    content: '\25b6'; /* play icon */
+    display: inline-block;
+    position: absolute;
 
-  font-size: xx-large;
-  text-align: center;
-  text-shadow: 0 1px #aaa;
-  width: 64px;
+    background: #ccc;
+    color: #fff;
 
-  transition: background 0.15s, color 0.15s, text-shadow 0.15s;
-}
+    font-size: xx-large;
+    text-align: center;
+    text-shadow: 0 1px #aaa;
+    width: 64px;
 
-/* change icon depending on stream state */
-.stream.stream_playing::before {
-  content: '\25fc\fe0e'; /* stop icon */
-}
-.stream.stream_buffering::before {
-  content: '\231b\fe0e'; /* buffering icon */
-}
+    transition: background 0.15s, color 0.15s, text-shadow 0.15s;
+  }
 
-/* different color open streams */
-.stream_playing::before, .stream_buffering::before {
-  background: #fc0;
-  color: #fff;
+  /* change icon depending on stream state */
+  &.stream_playing::before {
+    content: '\25fc\fe0e'; /* stop icon */
+  }
+  &.stream_buffering::before {
+    content: '\231b\fe0e'; /* buffering icon */
+  }
 
-  text-shadow: 0 1px #eb0;
-}
+  /* different color open streams */
+  &.stream_playing::before, &.stream_buffering::before {
+    background: #fc0;
+    color: #fff;
 
-/* stream name */
-.stream::after {
-  content: attr(data-name);
+    text-shadow: 0 1px #eb0;
+  }
 
-  margin-left: 64px;
-  padding: 16px;
+  /* stream name */
+  &::after {
+    content: attr(data-name);
+
+    margin-left: 64px;
+    padding: 16px;
+  }
 }
 
 /* credits */
