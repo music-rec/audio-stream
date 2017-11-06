@@ -7,8 +7,6 @@ const path = require('path');
 class Server {
   constructor (manager, logo) {
     this.app = express();
-    this.server = require('http').createServer(this.app);
-    this.io = require('socket.io')(this.server);
 
     this.manager = manager;
 
@@ -25,16 +23,22 @@ class Server {
       });
     });
 
-    this.io.on('connection', socket => {
-      socket.on('request stream', uid => {
-        console.log(this.manager.streams[uid].source); // TODO: actually stream it
-      })
+    this.app.get('/stream/:uid', (request, response) => {
+      response.contentType('application/ogg');
+
+      console.log('test');
+      console.log(request.accepts('application/ogg'));
+
+      if (request.accepts('application/ogg'))
+        this.manager.stream(request.params.uid, response);
+      else
+        response.send('');
     });
   }
 
   // start the server
   start () {
-    this.server.listen(3000, () => {
+    this.app.listen(3000, () => {
       console.log('Listening on port 3000');
     });
   }

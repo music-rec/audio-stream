@@ -3,9 +3,10 @@ meta(charset='utf-8')
 meta(name='viewport' content='width=device-width, initial-scale=1.0')
 title Audio Stream
 link(rel='stylesheet' href='/static/styles/primary.css')
-script(src='/socket.io/socket.io.js')
 script(src='/static/scripts/primary.js')
 div.content
+  audio.player
+  div.message
   if logo
     div.logo
       img.logo__image(src=logo)

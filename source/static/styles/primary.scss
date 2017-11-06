@@ -1,3 +1,7 @@
+.hidden {
+  display: none;
+}
+
 :root {
   background: #fafafa;
   font-family: sans-serif;
@@ -11,11 +15,38 @@
   margin: 0 auto;
 }
 
+/* alert message */
+.message {
+  background: #f33;
+  color: #fff;
+  position: fixed;
+  padding: 16px;
+  border-radius: 4px;
+  box-shadow: 0 0 16px rgba(1, 1, 1, 0.5);
+  opacity: 0.0;
+  z-index: 1;
+  transition: opacity 0.3s;
+  top: 0;
+  left: 0;
+  margin: 16px;
+
+  &::after {
+    content: 'Dismiss';
+    cursor: pointer;
+    text-decoration: underline;
+    padding-left: 10px;
+  }
+
+  &.message_visible {
+    opacity: 1.0;
+  }
+}
+
 /* position the logo and cover it with an overlay */
 .logo {
   position: relative;
 
-  margin-top: 16px;
+  margin-top: 8px;
 
   text-align: center;
 
@@ -41,8 +72,8 @@
 .streams {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 16px;
-  margin: 16px 0;
+  grid-gap: 8px;
+  margin: 8px 0;
 }
 
 /* single stream container */
