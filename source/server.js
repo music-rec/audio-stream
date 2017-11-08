@@ -9,6 +9,7 @@ class Server {
     this.app = express();
 
     // define view engine and endpoints
+    this.app.set('port', process.env.PORT || 5000);
     this.app.set('view engine', 'pug');
     this.app.settings['x-powered-by'] = false;
 
@@ -36,8 +37,8 @@ class Server {
 
   // start the server
   start () {
-    this.server = this.app.listen(3000, () => {
-      console.log('Listening on port 3000');
+    this.server = this.app.listen(this.app.get('port'), () => {
+      console.log(`Listening on :${this.app.get('port')}`);
     });
   }
 
