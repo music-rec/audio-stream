@@ -44,7 +44,6 @@
     ]
   },
   "server": {
-    "logo": "https://htcx.co/assets/images/global/logo.svg",
-    "port": "3000"
+    "logo": "https://htcx.co/assets/images/global/logo.svg"
   }
 }

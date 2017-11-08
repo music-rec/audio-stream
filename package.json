@@ -3,13 +3,12 @@
   "version": "0.0.1",
   "description": "Stream audio through Node.js backend to web frontend.",
   "scripts": {
-    "clean": "rm -r build",
+    "clean": "rm -r -f build",
     "build-babel": "babel source -d build --no-babelrc --presets=env,minify --source-maps",
     "build-sass": "node-sass source -o build --output-style compressed --source-map true",
     "clean-build": "npm run clean && npm run build",
     "build": "npm run build-babel && npm run build-sass",
-    "run": "node build/index.js config.json",
-    "start": "npm run clean-build && npm run run"
+    "start": "node build/index.js config.json"
   },
   "repository": {
     "type": "git",
