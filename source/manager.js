@@ -47,8 +47,10 @@ class Stream {
     this.encoder.on('start', this.start.bind(this));
     this.encoder.on('error', this.error.bind(this));
     this.encoder.on('end', this.end.bind(this));
+    this.encoder.on('data', () => console.log('data'));
 
     this.output = new Output();
+    this.output.on('data', this.update.bind(this));
 
     this.connections = 0; // ammount of concurrent connections
 
@@ -56,8 +58,7 @@ class Stream {
   }
 
   start (command) {
-    this.ready = true;
-    this.update();
+    //this.update();
   }
 
   error (error) {
