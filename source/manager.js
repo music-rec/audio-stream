@@ -36,13 +36,19 @@ class Output extends stream.Duplex {
 // manages a single stream
 class Stream {
   constructor (stream, encoding) {
-    this.ready = false;
-
     this.name = stream.name;
     this.source = stream.source;
 
     this.mime = mime.lookup(encoding.format);
 
+    this.encoder = null;
+    this.output = null;
+    this.connections = 0;
+
+    this.initialise();
+  }
+
+  initialise () {
     this.encoder = preset(this.source, encoding); 
     this.encoder.on('error', this.error.bind(this));
     this.encoder.on('end', this.end.bind(this));
@@ -58,12 +64,12 @@ class Stream {
 
   // encoding error
   error (error) {
-    this.ready = false;
+    this.initialise();
   }
 
   // encoding ends
   end (stdout, stderr) {
-    this.ready = false;
+    this.initialise();
   }
 
   // connect
