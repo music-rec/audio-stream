@@ -44,7 +44,6 @@ class Stream {
     this.mime = mime.lookup(encoding.format);
 
     this.encoder = preset(this.source, encoding); 
-    this.encoder.on('start', this.start.bind(this));
     this.encoder.on('error', this.error.bind(this));
     this.encoder.on('end', this.end.bind(this));
     this.encoder.on('data', () => console.log('data'));
@@ -57,14 +56,12 @@ class Stream {
     this.encoder.pipe(this.output); // start ffmpeg process
   }
 
-  start (command) {
-    //this.update();
-  }
-
+  // encoding error
   error (error) {
     this.ready = false;
   }
 
+  // encoding ends
   end (stdout, stderr) {
     this.ready = false;
   }
@@ -88,13 +85,13 @@ class Stream {
     this.output.pipe(response);
   }
 
+  // pause process if not actively requested
   update () {
     if (this.connections > 0) 
       this.encoder.kill('SIGCONT');
     else
       this.encoder.kill('SIGSTOP');
   }
-
 }
 
 // manages streams
@@ -104,6 +101,13 @@ class Manager {
 
     for (let stream of config.streams || []) {
       this.streams[hash(stream.source)] = new Stream(stream, config.encoding);
+    }
+  }
+
+  // make sure encoder processes exit properly
+  stop () {
+    for (let uid of Object.keys(this.streams)) {
+      this.streams[uid].encoder.kill('SIGCONT');
     }
   }
 }

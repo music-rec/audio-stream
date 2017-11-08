@@ -36,9 +36,13 @@ class Server {
 
   // start the server
   start () {
-    this.app.listen(3000, () => {
+    this.server = this.app.listen(3000, () => {
       console.log('Listening on port 3000');
     });
+  }
+
+  stop () {
+    this.server.close();
   }
 }
 

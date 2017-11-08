@@ -17,5 +17,11 @@ const manager = new Manager(config.manager);
 // create a new server
 const server = new Server(manager, config.server);
 
+process.on('SIGINT', () => {
+  server.stop.bind(server)();
+  manager.stop.bind(manager)();
+  process.exit();
+});
+
 server.start();
 
