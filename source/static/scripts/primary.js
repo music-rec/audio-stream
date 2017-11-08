@@ -14,7 +14,6 @@
 
     stop () {
       this.element.removeAttribute('src');
-      this.element.stop();
     }
   }
 
@@ -99,7 +98,6 @@
         this.current.state = 'buffering';
 
         this.player.play(this.current.uid);
-        this.message.set('Whoops... There was a problem playing the stream, please try again');
       }
     }
   }

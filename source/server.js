@@ -5,10 +5,8 @@ const path = require('path');
 
 // manages the express server -- the backend
 class Server {
-  constructor (manager, logo) {
+  constructor (manager, config) {
     this.app = express();
-
-    this.manager = manager;
 
     // define view engine and endpoints
     this.app.set('view engine', 'pug');
@@ -18,21 +16,14 @@ class Server {
     // render index with config logo and streams
     this.app.get('/', (request, response) => {
       response.render('index', {
-        logo: logo || null,
-        streams: this.manager.streams || []
+        logo: config.logo || null,
+        streams: manager.streams || []
       });
     });
 
+    // stream from re-encoded stream
     this.app.get('/stream/:uid', (request, response) => {
-      response.contentType('application/ogg');
-
-      console.log('test');
-      console.log(request.accepts('application/ogg'));
-
-      if (request.accepts('application/ogg'))
-        this.manager.stream(request.params.uid, response);
-      else
-        response.send('');
+      manager.streams[request.params.uid].pipe(response);
     });
   }
 
