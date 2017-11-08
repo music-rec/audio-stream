@@ -39,7 +39,9 @@ class Stream {
     this.name = stream.name;
     this.source = stream.source;
 
-    this.mime = mime.lookup(encoding.format);
+    this.encoding = encoding;
+
+    this.mime = mime.lookup(this.encoding.format);
 
     this.encoder = null;
     this.output = null;
@@ -49,7 +51,7 @@ class Stream {
   }
 
   initialise () {
-    this.encoder = preset(this.source, encoding); 
+    this.encoder = preset(this.source, this.encoding); 
     this.encoder.on('error', this.error.bind(this));
     this.encoder.on('end', this.end.bind(this));
     this.encoder.on('data', () => console.log('data'));
