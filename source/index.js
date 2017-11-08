@@ -1,5 +1,7 @@
 'use strict';
 
+import 'source-map-support/register';
+
 const Server = require('./server');
 const Manager = require('./manager');
 

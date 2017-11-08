@@ -3,17 +3,19 @@
 
   // manages the stream audio
   class Player {
-    constructor (element) {
-      this.element = element;
+    constructor () {
+      this.audio = null;
     }
 
     play (uid) {
-      this.element.setAttribute('src', `/stream/${uid}`);
-      this.element.play();
+      this.audio = new window.Audio(`/stream/${uid}`);
+      this.audio.play();
     }
 
     stop () {
-      this.element.removeAttribute('src');
+      this.audio.pause();
+      this.audio.src = '';
+      //this.audio.currentTime = 0;
     }
   }
 
@@ -78,7 +80,7 @@
     // initialise the streams
     init () {
       this.message = new Message();
-      this.player = new Player(window.document.querySelector('.player'));
+      this.player = new Player();
 
       for (let stream of window.document.querySelectorAll('.stream'))
         new Stream(stream, stream => this.click(stream));

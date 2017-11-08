@@ -10,7 +10,9 @@ class Server {
 
     // define view engine and endpoints
     this.app.set('view engine', 'pug');
+    this.app.settings['x-powered-by'] = false;
 
+    // serve static files to client
     this.app.use('/static', express.static(path.join(__dirname, 'static')));
 
     // render index with config logo and streams
@@ -22,8 +24,13 @@ class Server {
     });
 
     // stream from re-encoded stream
-    this.app.get('/stream/:uid', (request, response) => {
+    this.app.get('/stream/:uid', (request, response, next) => {
+      request.on('close', next);
+
+      manager.streams[request.params.uid].connect();
       manager.streams[request.params.uid].pipe(response);
+    }, (request, response) => {
+      manager.streams[request.params.uid].disconnect();
     });
   }
 
