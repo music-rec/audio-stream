@@ -20,7 +20,9 @@ const preset = (source, encoding) => {
   return ffmpeg(source)
     .native()
     .format(encoding.format)
-    .audioBitrate(encoding.bitrate);
+    .audioBitrate(encoding.bitrate)
+    .inputOptions(encoding.inputOptions)
+    .outputOptions(encoding.outputOptions);
 }
 
 // manages a stream output
@@ -52,26 +54,20 @@ class Stream {
 
   initialise () {
     this.encoder = preset(this.source, this.encoding); 
-    this.encoder.on('error', this.error.bind(this));
-    this.encoder.on('end', this.end.bind(this));
-    this.encoder.on('data', () => console.log('data'));
+    this.encoder.on('start', 
+      command => console.log(`Initialising '${this.name}' to '${this.source}'`)
+    );
+    this.encoder.on('error', this.initialise.bind(this));
+    this.encoder.on('end', this.initialise.bind(this));
+
+    if (this.output) this.output.end();
 
     this.output = new Output();
-    this.output.on('data', this.update.bind(this));
-
-    this.connections = 0; // ammount of concurrent connections
+    this.output.on('readable', this.update.bind(this));
+    this.output.on('error', error => this.initialise.bind(this));
+    this.output.on('close', (stdout, stderr) => this.initialise.bind(this));
 
     this.encoder.pipe(this.output); // start ffmpeg process
-  }
-
-  // encoding error
-  error (error) {
-    this.initialise();
-  }
-
-  // encoding ends
-  end (stdout, stderr) {
-    this.initialise();
   }
 
   // connect
@@ -89,16 +85,19 @@ class Stream {
   // pipe stream to client request response
   pipe (response) {
     response.contentType(this.mime);
-
-    this.output.pipe(response);
+    this.output.pipe(response, {end: true});
   }
 
   // pause process if not actively requested
   update () {
-    if (this.connections > 0) 
-      this.encoder.kill('SIGCONT');
-    else
-      this.encoder.kill('SIGSTOP');
+    console.log(`${this.connections} user(s) connected to '${this.name}'`);
+
+    // pause processes when not used, causes problems with http streams
+    if (this.connections > 0) {
+      // this.encoder.kill('SIGCONT');
+    } else {
+      //this.encoder.kill('SIGSTOP');
+    }
   }
 }
 

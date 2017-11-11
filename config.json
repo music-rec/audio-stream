@@ -2,7 +2,11 @@
   "manager": {
     "encoding": {
       "format": "mp3",
-      "bitrate": "64k"
+      "bitrate": "64k",
+      "inputOptions": [
+        "-reconnect 1"
+      ],
+      "outputOptions": []
     },
     "streams": [
       {
